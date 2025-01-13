@@ -7,34 +7,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $conn->prepare("INSERT INTO posts (title, content) VALUES (?, ?)");
     $stmt->execute([$title, $content]);
-
+    
     if ($stmt) {
-        // Trigger SweetAlert on success
         echo "<script>
-           window.addEventListener('load', () => {
-              Swal.fire({
-                 title: 'Success!',
-                 text: 'New record created successfully',
-                 icon: 'success',
-                 confirmButtonText: 'OK'
-              }).then(() => {
-                 window.location = 'index.php';
-              });
-           });
+            alert('Blog created successfully!');
+            window.location = 'index.php';
         </script>";
-     } else {
-        // Trigger SweetAlert on error
+    } else {
         echo "<script>
-           window.addEventListener('load', () => {
-              Swal.fire({
-                 title: 'Error!',
-                 text: '" . mysqli_error($conn) . "',
-                 icon: 'error',
-                 confirmButtonText: 'OK'
-              });
-           });
+            alert('Error: Unable to add to blog.');
         </script>";
-     }
+    }
+   
 }
 ?>
 
